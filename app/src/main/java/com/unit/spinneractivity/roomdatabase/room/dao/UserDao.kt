@@ -15,6 +15,9 @@ interface UserDao {
     @Query("SELECT * FROM USERENTITY WHERE username=:username AND password =:userpassword")
     fun findUsers(username: String, userpassword: String): List<UserEntity>?
 
+//    @Query("SELECT * FROM USERENTITY")
+//    fun userLogin(): UserEntity?
+
     @Insert
     fun inserUSers(userEntity: UserEntity): Long
 

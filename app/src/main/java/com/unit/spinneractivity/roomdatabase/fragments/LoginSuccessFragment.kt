@@ -12,10 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.unit.spinneractivity.databinding.FragmentLoginSuccessBinding
 import com.unit.spinneractivity.roomdatabase.adapter.RoomAdapter
-import com.unit.spinneractivity.roomdatabase.room.entities.DataEntity
 import com.unit.spinneractivity.roomdatabase.room.entities.UserEntity
 import com.unit.spinneractivity.roomdatabase.viewmodel.RoomViewModel
-import timber.log.Timber
 import java.util.*
 
 
@@ -23,8 +21,7 @@ class LoginSuccessFragment : Fragment() {
 
     var binding: FragmentLoginSuccessBinding? = null
     val roomadatapter = RoomAdapter()
-    var getitem: DataEntity? = null
-    var entity = UserEntity()
+    var entity: UserEntity? = null
     var dateInstance: DatePickerDialog.OnDateSetListener? = null
     val viewmodel by activityViewModels<RoomViewModel>()
 
@@ -44,7 +41,6 @@ class LoginSuccessFragment : Fragment() {
         recycler()
         datePickder()
         clicklistner()
-
         suscribeobserver()
     }
 
@@ -60,19 +56,7 @@ class LoginSuccessFragment : Fragment() {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val itemposition = viewHolder.adapterPosition
-                Timber.d("item touch clicked")
-                viewmodel.userDataListLD.observe(viewLifecycleOwner) {
-                    getitem = it.get(itemposition)
-                }
-
-                val currentitem = getitem
-
-                if (currentitem != null) {
-                    viewmodel.deletDataItem(currentitem)
-                }
-
-                roomadatapter.notifyItemRemoved(itemposition)
-
+                viewmodel.deletItemOnPositon(itemposition)
             }
 
         }).attachToRecyclerView(binding?.recycler)
@@ -82,25 +66,25 @@ class LoginSuccessFragment : Fragment() {
         viewmodel.userDataListLD.observe(viewLifecycleOwner) {
             roomadatapter.datsset(it)
         }
+
     }
 
     private fun recycler() {
         binding?.recycler?.layoutManager = LinearLayoutManager(requireContext())
         binding?.recycler?.adapter = roomadatapter
-
     }
 
 
     private fun clicklistner() {
 
         binding?.logout?.setOnClickListener {
+//            viewmodel.logout()
             viewmodel.loadFragment(LoginRegisterFragment())
-            entity.islogin = false
+
         }
 
 
         binding?.insert?.setOnClickListener {
-            entity.islogin = true
             val calendar = Calendar.getInstance()
             DatePickerDialog(requireContext(),
                 dateInstance,

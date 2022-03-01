@@ -44,8 +44,8 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
 
     fun deletDataItem(item: DataEntity) {
         viewModelScope.launch(Dispatchers.IO) {
-        repository.deletItem(item)
-          getUserData()
+            repository.deletItem(item)
+            getUserData()
 
         }
     }
@@ -54,7 +54,7 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
         Timber.d("username $username & password $userpassword")
         viewModelScope.launch(Dispatchers.IO) {
 
-            var checkUsers = repository.checkIfUserExist(username, userpassword)
+            val checkUsers = repository.checkIfUserExist(username, userpassword)
 
             if (checkUsers == true) {
 
@@ -77,7 +77,7 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
 
     private fun getUserData() {
         loginuser?.uid?.let { uid ->
-            var userData = repository.getUserData(uid)
+            val userData = repository.getUserData(uid)
             userData?.let {
                 repository
                 userDataListMLD.postValue(it)
@@ -92,7 +92,7 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
             val isInserted = repository.regiseterUser(userEntity)
             if (isInserted > 0) {
                 fragmentMLD.postValue(LoginRegisterFragment())
-                // TODO: notifiuser
+
 
             } else {
 
@@ -103,7 +103,7 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun onDatePicked(year: Int, mont: Int, dayofmont: Int) {
-        var calendar = Calendar.getInstance()
+        val calendar = Calendar.getInstance()
         calendar.set(Calendar.YEAR, year)
         calendar.set(Calendar.MONTH, mont)
         calendar.set(Calendar.DAY_OF_MONTH, dayofmont)
@@ -133,5 +133,20 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
 
 
     }
+
+    fun deletItemOnPositon(itemposition: Int) {
+        val getitemposition = userDataListMLD.value?.get(itemposition)
+        if (getitemposition != null) {
+            deletDataItem(getitemposition)
+        }
+    }
+
+//    fun logout() {
+//        viewModelScope.launch(Dispatchers.IO) {
+//            loginuser = repository.getUserLogin()
+//            loginuser?.islogin = false
+//        }
+//
+//    }
 
 }
