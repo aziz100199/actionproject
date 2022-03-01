@@ -10,7 +10,7 @@ interface DataDao {
     @Insert
     fun insertData(userEntity: DataEntity)
 
-    @Query("SELECT * FROM DataEntity")
-    fun getAllData(): List<DataEntity>?
+    @Query("SELECT * FROM DataEntity WHERE userid=:uid")
+    fun getAllData(uid: Int): List<DataEntity>?
 
 }

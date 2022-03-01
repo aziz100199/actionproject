@@ -32,8 +32,8 @@ class UserRepository(var db: UserDataBase) {
         db.dataDao().insertData(dataEntity)
     }
 
-    fun getUserData(): List<DataEntity>? {
-     return db.dataDao().getAllData()
+    fun getUserData(uid: Int): List<DataEntity>? {
+     return db.dataDao().getAllData(uid)
     }
 
 

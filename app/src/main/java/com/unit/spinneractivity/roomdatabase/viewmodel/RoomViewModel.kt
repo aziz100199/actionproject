@@ -80,10 +80,14 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private fun getUserData() {
-        var userData = repository.getUserData()
-        userData?.let {
-            userDataListMLD.postValue(it)
+        loginuser?.uid?.let { uid ->
+            var userData = repository.getUserData(uid)
+            userData?.let {
+                repository
+                userDataListMLD.postValue(it)
+            }
         }
+
     }
 
     fun registerUsers(username: String, userpassword: String) {
