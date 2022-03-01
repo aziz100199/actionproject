@@ -42,14 +42,11 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun addInUserData(item1: String, item2: String, item3: String, uid: Int) {
+    fun deletDataItem(item: DataEntity) {
         viewModelScope.launch(Dispatchers.IO) {
-            val userEntity = DataEntity()
-            userEntity.userid = uid
-            userEntity.timeformate1 = item1
-            userEntity.timeformate2 = item2
-            userEntity.timeformate3 = item3
-            Timber.d("inserted ${uid}")
+        repository.deletItem(item)
+          getUserData()
+
         }
     }
 
@@ -66,9 +63,7 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
                 loginuser?.let {
                     it.islogin = true
                     repository.updateUsers(it)
-
                     getUserData()
-
                     fragmentMLD.postValue(LoginSuccessFragment())
 
                 }
@@ -78,6 +73,7 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
         }
 
     }
+
 
     private fun getUserData() {
         loginuser?.uid?.let { uid ->
@@ -101,6 +97,7 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
             } else {
 
                 // TODO: notifiyerror
+
             }
         }
     }

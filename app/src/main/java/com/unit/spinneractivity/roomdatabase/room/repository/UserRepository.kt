@@ -33,7 +33,11 @@ class UserRepository(var db: UserDataBase) {
     }
 
     fun getUserData(uid: Int): List<DataEntity>? {
-     return db.dataDao().getAllData(uid)
+        return db.dataDao().getAllData(uid)
+    }
+
+    fun deletItem(item: DataEntity) {
+        return db.dataDao().deletUserData(item)
     }
 
 

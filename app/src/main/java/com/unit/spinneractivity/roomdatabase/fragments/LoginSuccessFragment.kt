@@ -7,11 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.unit.spinneractivity.databinding.FragmentLoginSuccessBinding
 import com.unit.spinneractivity.roomdatabase.adapter.RoomAdapter
+import com.unit.spinneractivity.roomdatabase.room.entities.DataEntity
 import com.unit.spinneractivity.roomdatabase.room.entities.UserEntity
 import com.unit.spinneractivity.roomdatabase.viewmodel.RoomViewModel
+import timber.log.Timber
 import java.util.*
 
 
@@ -19,6 +23,7 @@ class LoginSuccessFragment : Fragment() {
 
     var binding: FragmentLoginSuccessBinding? = null
     val roomadatapter = RoomAdapter()
+    var getitem: DataEntity? = null
     var entity = UserEntity()
     var dateInstance: DatePickerDialog.OnDateSetListener? = null
     val viewmodel by activityViewModels<RoomViewModel>()
@@ -35,12 +40,42 @@ class LoginSuccessFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        itemTouchListner()
         recycler()
         datePickder()
         clicklistner()
 
         suscribeobserver()
+    }
+
+    private fun itemTouchListner() {
+        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder,
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val itemposition = viewHolder.adapterPosition
+                Timber.d("item touch clicked")
+                viewmodel.userDataListLD.observe(viewLifecycleOwner) {
+                    getitem = it.get(itemposition)
+                }
+
+                val currentitem = getitem
+
+                if (currentitem != null) {
+                    viewmodel.deletDataItem(currentitem)
+                }
+
+                roomadatapter.notifyItemRemoved(itemposition)
+
+            }
+
+        }).attachToRecyclerView(binding?.recycler)
     }
 
     private fun suscribeobserver() {

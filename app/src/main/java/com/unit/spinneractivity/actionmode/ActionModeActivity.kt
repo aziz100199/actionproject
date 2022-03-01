@@ -44,7 +44,6 @@ class ActionModeActivity : AppCompatActivity(), actionmodeAdapter.AdapterCallBac
 
     private fun clicklistner() {
         actionViewModel.liveData.observe(this, Observer {
-
             binding?.actionmoderecycler?.layoutManager = LinearLayoutManager(this)
             adaapter = actionmodeAdapter(this, this)
             binding?.actionmoderecycler?.adapter = adaapter
@@ -56,7 +55,6 @@ class ActionModeActivity : AppCompatActivity(), actionmodeAdapter.AdapterCallBac
 
 
     private fun iTemTouchDelete() {
-
 
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             override fun onMove(
@@ -73,7 +71,7 @@ class ActionModeActivity : AppCompatActivity(), actionmodeAdapter.AdapterCallBac
                 actionViewModel.swapremoveItem(currentItem)
 
 //                val position = viewHolder.adapterPosition
-//                listname.removeAt(viewHolder.adapterPosition)
+////                listname.removeAt(viewHolder.adapterPosition)
 
                 adaapter!!.notifyItemRemoved(viewHolder.adapterPosition)
 
