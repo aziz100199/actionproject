@@ -19,7 +19,7 @@ class BaseApplicaton : Application() {
                     message: String,
                     t: Throwable?,
                 ) {
-                    super.log(priority, String.format("result %s", tag), message, t)
+                    super.log(priority, String.format("htimber %s", tag), message, t)
                 }
             })
         }

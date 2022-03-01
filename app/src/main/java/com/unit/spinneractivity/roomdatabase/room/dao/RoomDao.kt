@@ -13,13 +13,13 @@ interface RoomDao {
     fun checkIfUserExit(username: String, userpassword: String): Boolean
 
     @Query("SELECT * FROM USERENTITY WHERE username=:username AND password =:userpassword")
-    fun findUsers(username: String, userpassword: String): List<UserEntity>? = null
+    fun findUsers(username: String, userpassword: String): List<UserEntity>?
 
     @Insert
     fun inserUSers(userEntity: UserEntity): Long
 
     @Query("SELECT * FROM USERENTITY")
-    fun testpurpose(): List<UserEntity>? = null
+    fun testpurpose(): List<UserEntity>?
 
     @Update
     fun updateUser(userEntity: UserEntity)
