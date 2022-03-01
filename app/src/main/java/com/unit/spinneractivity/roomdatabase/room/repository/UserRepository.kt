@@ -4,9 +4,8 @@ import com.unit.spinneractivity.roomdatabase.room.database.UserDataBase
 import com.unit.spinneractivity.roomdatabase.room.entities.UserEntity
 
 class UserRepository(var db: UserDataBase) {
-    suspend fun checkIfUserExist(username: String, userpassword: String) {
-        val allUsers = db.dao().getALLUsers(username, userpassword)
-
+    suspend fun checkIfUserExist(username: String, userpassword: String): Boolean {
+        return db.dao().checkIfUserExit(username, userpassword)
     }
 
     suspend fun regiseterUser(userEntity: UserEntity): Long {
@@ -14,9 +13,19 @@ class UserRepository(var db: UserDataBase) {
 
     }
 
-   suspend fun test() {
-         db.dao().testpurpose()
+    suspend fun test() {
+        db.dao().testpurpose()
 
     }
+
+    fun updateUsers(userEntity: UserEntity) {
+        db.dao().updateUser(userEntity)
+    }
+
+    fun getUser(username: String, userpassword: String): UserEntity? {
+        return db.dao().findUsers(username, userpassword)?.get(0)
+
+    }
+
 
 }

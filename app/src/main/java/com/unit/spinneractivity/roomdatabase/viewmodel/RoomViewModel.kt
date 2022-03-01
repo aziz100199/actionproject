@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.unit.spinneractivity.roomdatabase.fragments.LoginRegisterFragment
+import com.unit.spinneractivity.roomdatabase.fragments.LoginSuccessFragment
 import com.unit.spinneractivity.roomdatabase.room.database.UserDataBase
 import com.unit.spinneractivity.roomdatabase.room.entities.DataEntity
 import com.unit.spinneractivity.roomdatabase.room.entities.UserEntity
@@ -50,15 +51,31 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun submitLoginData(username: String, userpassword: String) {
+        Timber.d("username $username & password $userpassword")
+        viewModelScope.launch(Dispatchers.IO) {
 
-        //        repository.checkIfUserExist(username, userpassword)
+            var checkUsers = repository.checkIfUserExist(username, userpassword)
+
+            if (checkUsers == true) {
+                fragmentMLD.postValue(LoginSuccessFragment())
+                var user = repository.getUser(username, userpassword)
+                Timber.d("user ${user}")
+                user?.let {
+                    it.islogin = true
+                    repository.updateUsers(it)
+
+                }
+            } else {
+                // TODO: pleaseregister
+            }
+        }
 
     }
 
     fun registerUsers(username: String, userpassword: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val userEntity = UserEntity(username = username, password = userpassword)
-            val isInserted =repository.regiseterUser(userEntity)
+            val isInserted = repository.regiseterUser(userEntity)
             if (isInserted > 0) {
                 fragmentMLD.postValue(LoginRegisterFragment())
                 // TODO: notifiuser
