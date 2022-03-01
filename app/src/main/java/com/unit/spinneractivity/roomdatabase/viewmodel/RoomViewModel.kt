@@ -15,22 +15,25 @@ import com.unit.spinneractivity.roomdatabase.room.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.text.SimpleDateFormat
+import java.util.*
 
 class RoomViewModel(application: Application) : AndroidViewModel(application) {
+    private var loginuser: UserEntity? = null
+    private val db = UserDataBase.get(application)
+    val repository = UserRepository(db)
+
+    private var userDataListMLD = MutableLiveData(listOf<DataEntity>())
+    var userDataListLD = liveData {
+        emitSource(userDataListMLD)
+    }
+
 
     private var fragmentMLD = MutableLiveData<Fragment>()
     var fragmentLD = liveData {
         emitSource(fragmentMLD)
     }
 
-    private var mutableLiveDataForUserInfo = MutableLiveData<UserEntity>()
-    var liveDataForUserInfo = liveData {
-        emitSource(mutableLiveDataForUserInfo)
-    }
-
-
-    private val db = UserDataBase.get(application)
-    val repository = UserRepository(db)
 
     fun loadFragment(fragment: Fragment) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -58,11 +61,14 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
 
             if (checkUsers == true) {
 
-                var user = repository.getUser(username, userpassword)
+                loginuser = repository.getUser(username, userpassword)
 
-                user?.let {
+                loginuser?.let {
                     it.islogin = true
                     repository.updateUsers(it)
+
+                    getUserData()
+
                     fragmentMLD.postValue(LoginSuccessFragment())
 
                 }
@@ -71,6 +77,13 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
 
+    }
+
+    private fun getUserData() {
+        var userData = repository.getUserData()
+        userData?.let {
+            userDataListMLD.postValue(it)
+        }
     }
 
     fun registerUsers(username: String, userpassword: String) {
@@ -86,6 +99,38 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
                 // TODO: notifiyerror
             }
         }
+    }
+
+    fun onDatePicked(year: Int, mont: Int, dayofmont: Int) {
+        var calendar = Calendar.getInstance()
+        calendar.set(Calendar.YEAR, year)
+        calendar.set(Calendar.MONTH, mont)
+        calendar.set(Calendar.DAY_OF_MONTH, dayofmont)
+        dateFormate(calendar)
+    }
+
+    fun dateFormate(calendar: Calendar) {
+
+        viewModelScope.launch(Dispatchers.IO) {
+            val dateformate = SimpleDateFormat("dd_MM_yyyy", Locale.getDefault())
+            val dateconvert = dateformate.format(calendar.time)
+            val dateformate1 = SimpleDateFormat("MM_dd_yyyy", Locale.getDefault())
+            val dateconvert1 = dateformate1.format(calendar.time)
+            val dateformate2 = SimpleDateFormat("yyyy_MM_dd", Locale.getDefault())
+            val dateconvert2 = dateformate2.format(calendar.time)
+
+
+            val dataEntity = DataEntity(
+                userid = loginuser?.uid,
+                timeformate1 = dateconvert,
+                timeformate2 = dateconvert1,
+                timeformate3 = dateconvert2
+            )
+            repository.insertData(dataEntity)
+            getUserData()
+        }
+
+
     }
 
 }

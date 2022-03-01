@@ -7,7 +7,7 @@ import androidx.room.Update
 import com.unit.spinneractivity.roomdatabase.room.entities.UserEntity
 
 @Dao
-interface RoomDao {
+interface UserDao {
 
     @Query("SELECT EXISTS(SELECT * FROM USERENTITY WHERE username=:username AND password =:userpassword)")
     fun checkIfUserExit(username: String, userpassword: String): Boolean
