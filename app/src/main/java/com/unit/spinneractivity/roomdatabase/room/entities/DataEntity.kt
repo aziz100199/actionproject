@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-class DataEntity(
+data class DataEntity(
     @PrimaryKey(autoGenerate = true)
     val Id: Int? = null,
     var userid: Int? = null,

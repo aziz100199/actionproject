@@ -57,12 +57,13 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
             var checkUsers = repository.checkIfUserExist(username, userpassword)
 
             if (checkUsers == true) {
+
                 var user = repository.getUser(username, userpassword)
-                Timber.d("user ${user?.uid}")
+
                 user?.let {
                     it.islogin = true
-                    fragmentMLD.postValue(LoginSuccessFragment())
                     repository.updateUsers(it)
+                    fragmentMLD.postValue(LoginSuccessFragment())
 
                 }
             } else {

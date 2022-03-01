@@ -1,6 +1,7 @@
 package com.unit.spinneractivity
 
 import android.app.Application
+import androidx.viewbinding.BuildConfig
 import timber.log.Timber
 
 class BaseApplicaton : Application() {
