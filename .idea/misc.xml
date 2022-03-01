@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Aziz/AndroidStudioProjects/SpinnerActivity2/app/src/main/res/layout/action_mode_recycler_layout.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Aziz/AndroidStudioProjects/SpinnerActivity2/app/src/main/res/layout/activity_action_mode.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Aziz/AndroidStudioProjects/SpinnerActivity2/app/src/main/res/layout/activity_launcher.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Aziz/AndroidStudioProjects/SpinnerActivity2/app/src/main/res/layout/activity_main.xml" value="0.18729463307776562" />
+        <entry key="..\:/Users/Aziz/AndroidStudioProjects/SpinnerActivity2/app/src/main/res/layout/spiner_recyclerview_layout.xml" value="0.15537059056678557" />
+        <entry key="..\:/Users/Aziz/AndroidStudioProjects/SpinnerActivity2/app/src/main/res/menu/actionmodemenu.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Aziz/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/simple_spinner_item.xml" value="0.20416666666666666" />
+        <entry key="..\:/projects/SpinnerActivity2/app/src/main/res/layout/activity_collapsing_tool_bar_activitu.xml" value="0.20416666666666666" />
+        <entry key="..\:/projects/SpinnerActivity2/app/src/main/res/layout/activity_data_base.xml" value="0.20416666666666666" />
+        <entry key="..\:/projects/SpinnerActivity2/app/src/main/res/layout/activity_data_base2.xml" value="0.15537059056678557" />
+        <entry key="..\:/projects/SpinnerActivity2/app/src/main/res/layout/activity_date_picker.xml" value="0.20416666666666666" />
+        <entry key="..\:/projects/SpinnerActivity2/app/src/main/res/layout/activity_launcher.xml" value="0.20416666666666666" />
+        <entry key="..\:/projects/SpinnerActivity2/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/projects/SpinnerActivity2/app/src/main/res/layout/activity_room_data_base.xml" value="0.20416666666666666" />
+        <entry key="..\:/projects/SpinnerActivity2/app/src/main/res/layout/fragment_date_picker.xml" value="0.15537059056678557" />
+        <entry key="..\:/projects/SpinnerActivity2/app/src/main/res/layout/fragment_login_success.xml" value="0.1" />
+        <entry key="..\:/projects/SpinnerActivity2/app/src/main/res/layout/fragment_register.xml" value="0.14" />
+        <entry key="..\:/projects/SpinnerActivity2/app/src/main/res/layout/fragment_room_login_interface.xml" value="0.20416666666666666" />
+        <entry key="..\:/projects/SpinnerActivity2/app/src/main/res/layout/roomadapterlayout.xml" value="0.15537059056678557" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
