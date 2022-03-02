@@ -141,12 +141,14 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-//    fun logout() {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            loginuser = repository.getUserLogin()
-//            loginuser?.islogin = false
-//        }
-//
-//    }
+    fun logout() {
+        viewModelScope.launch(Dispatchers.IO) {
+            loginuser = repository.getUserLogin()
+            loginuser?.islogin = false
+            loginuser?.let { repository.updateUsers(it) }
+
+        }
+
+    }
 
 }

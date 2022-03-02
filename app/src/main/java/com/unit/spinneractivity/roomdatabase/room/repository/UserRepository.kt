@@ -27,10 +27,10 @@ class UserRepository(var db: UserDataBase) {
         return db.userDao().findUsers(username, userpassword)?.get(0)
 
     }
-//    fun getUserLogin(): UserEntity? {
-//        return db.userDao().userLogin()
-//
-//    }
+    fun getUserLogin(): UserEntity? {
+        return db.userDao().userLogin()
+
+    }
 
     fun insertData(dataEntity: DataEntity) {
         db.dataDao().insertData(dataEntity)
@@ -43,6 +43,7 @@ class UserRepository(var db: UserDataBase) {
     fun deletItem(item: DataEntity) {
         return db.dataDao().deletUserData(item)
     }
+
 
 
 }

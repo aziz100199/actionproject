@@ -2,17 +2,16 @@ package com.unit.spinneractivity.roomdatabase.fragments
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.unit.spinneractivity.R
 import com.unit.spinneractivity.databinding.FragmentLoginSuccessBinding
 import com.unit.spinneractivity.roomdatabase.adapter.RoomAdapter
-import com.unit.spinneractivity.roomdatabase.room.entities.UserEntity
 import com.unit.spinneractivity.roomdatabase.viewmodel.RoomViewModel
 import java.util.*
 
@@ -21,7 +20,7 @@ class LoginSuccessFragment : Fragment() {
 
     var binding: FragmentLoginSuccessBinding? = null
     val roomadatapter = RoomAdapter()
-    var entity: UserEntity? = null
+    var actionmodecallback: ActionMode.Callback? = null
     var dateInstance: DatePickerDialog.OnDateSetListener? = null
     val viewmodel by activityViewModels<RoomViewModel>()
 
@@ -42,9 +41,41 @@ class LoginSuccessFragment : Fragment() {
         datePickder()
         clicklistner()
         suscribeobserver()
+        actionmode()
+
+    }
+
+    private fun actionmode() {
+
+        actionmodecallback = object : ActionMode.Callback {
+            override fun onCreateActionMode(p0: ActionMode?, p1: Menu?): Boolean {
+                return true
+            }
+
+            override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+                mode?.menuInflater?.inflate(R.menu.actionmodemenu, menu)
+                mode?.setTitle("RoomActionMode")
+                return true
+            }
+
+            override fun onActionItemClicked(actionmode: ActionMode?, menu: MenuItem?): Boolean {
+                when (menu?.itemId) {
+                    R.id.delet -> Toast.makeText(requireContext(), "deleted", Toast.LENGTH_SHORT)
+                        .show()
+                }
+
+                return true
+            }
+
+            override fun onDestroyActionMode(p0: ActionMode?) {
+                Toast.makeText(requireContext(), "Destroy", Toast.LENGTH_SHORT).show()
+            }
+
+        }
     }
 
     private fun itemTouchListner() {
+
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             override fun onMove(
                 recyclerView: RecyclerView,
@@ -78,8 +109,12 @@ class LoginSuccessFragment : Fragment() {
     private fun clicklistner() {
 
         binding?.logout?.setOnClickListener {
-//            viewmodel.logout()
+            viewmodel.logout()
             viewmodel.loadFragment(LoginRegisterFragment())
+
+        }
+        binding?.actionmode?.setOnClickListener {
+
 
         }
 
