@@ -37,7 +37,7 @@ class ActionModeActivity : AppCompatActivity(), actionmodeAdapter.AdapterCallBac
         actionMode()
         clicklistner()
         actionViewModel.init()
-//        recyclerlist()
+
 
     }
 

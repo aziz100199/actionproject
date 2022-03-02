@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.snackbar.Snackbar
+import com.unit.spinneractivity.RoomDbActivity
 import com.unit.spinneractivity.databinding.FragmentRoomLoginInterfaceBinding
 import com.unit.spinneractivity.roomdatabase.room.entities.UserEntity
 import com.unit.spinneractivity.roomdatabase.viewmodel.RoomViewModel
@@ -29,12 +30,21 @@ class LoginRegisterFragment() : Fragment() {
 
         clickListner()
         subscribeObservers()
+        toolbar()
+    }
+
+    private fun toolbar() {
+        (requireContext() as RoomDbActivity).setSupportActionBar(binding?.toolbar)
+        (requireContext() as RoomDbActivity).supportActionBar?.title="User Login"
+        (requireContext() as RoomDbActivity).getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+        (requireContext() as RoomDbActivity).getSupportActionBar()?.setDisplayShowHomeEnabled(true)
+
     }
 
     private fun subscribeObservers() {
 
-    }
 
+    }
     private fun clickListner() {
         binding?.registerbtn?.setOnClickListener {
             viewmodel.loadFragment(RegisterFragment())
@@ -55,4 +65,8 @@ class LoginRegisterFragment() : Fragment() {
 
 
     }
+
+
+
+
 }

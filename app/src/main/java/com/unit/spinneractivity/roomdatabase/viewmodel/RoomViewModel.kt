@@ -1,13 +1,18 @@
 package com.unit.spinneractivity.roomdatabase.viewmodel
 
 import android.app.Application
+import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
+import com.google.android.material.snackbar.Snackbar
+import com.unit.spinneractivity.R
 import com.unit.spinneractivity.roomdatabase.fragments.LoginRegisterFragment
 import com.unit.spinneractivity.roomdatabase.fragments.LoginSuccessFragment
+import com.unit.spinneractivity.roomdatabase.fragments.ProfileFragment
 import com.unit.spinneractivity.roomdatabase.room.database.UserDataBase
 import com.unit.spinneractivity.roomdatabase.room.entities.DataEntity
 import com.unit.spinneractivity.roomdatabase.room.entities.UserEntity
@@ -15,8 +20,6 @@ import com.unit.spinneractivity.roomdatabase.room.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.text.SimpleDateFormat
-import java.util.*
 
 class RoomViewModel(application: Application) : AndroidViewModel(application) {
     private var loginuser: UserEntity? = null
@@ -53,14 +56,12 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
     fun submitLoginData(username: String, userpassword: String) {
         Timber.d("username $username & password $userpassword")
         viewModelScope.launch(Dispatchers.IO) {
-
             val checkUsers = repository.checkIfUserExist(username, userpassword)
-
             if (checkUsers == true) {
-
                 loginuser = repository.getUser(username, userpassword)
-
+                Timber.d("submit id ${loginuser?.uid}")
                 loginuser?.let {
+                    repository
                     it.islogin = true
                     repository.updateUsers(it)
                     getUserData()
@@ -79,9 +80,30 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
         loginuser?.uid?.let { uid ->
             val userData = repository.getUserData(uid)
             userData?.let {
-                repository
                 userDataListMLD.postValue(it)
             }
+        }
+    }
+
+    fun checkUserProfile(view: View) {
+        viewModelScope.launch(Dispatchers.IO) {
+            loginuser?.uid?.let {
+                val data = repository.getUserData(it)
+                data?.let {
+                    if (it.isEmpty()) {
+                        Snackbar.make(view,
+                            "Please fill your informaton",
+                            Snackbar.LENGTH_INDEFINITE).setAction("Profile") {
+                            loadFragment(ProfileFragment())
+                        }.setActionTextColor(ContextCompat.getColor(getApplication(),
+                            R.color.green))
+                            .setBackgroundTint(ContextCompat.getColor(getApplication(),
+                                R.color.black)).show()
+                    }
+                }
+
+            }
+
         }
 
     }
@@ -92,8 +114,6 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
             val isInserted = repository.regiseterUser(userEntity)
             if (isInserted > 0) {
                 fragmentMLD.postValue(LoginRegisterFragment())
-
-
             } else {
 
                 // TODO: notifiyerror
@@ -102,47 +122,63 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun onDatePicked(year: Int, mont: Int, dayofmont: Int) {
-        val calendar = Calendar.getInstance()
-        calendar.set(Calendar.YEAR, year)
-        calendar.set(Calendar.MONTH, mont)
-        calendar.set(Calendar.DAY_OF_MONTH, dayofmont)
-        dateFormate(calendar)
-    }
-
-    fun dateFormate(calendar: Calendar) {
-
-        viewModelScope.launch(Dispatchers.IO) {
-            val dateformate = SimpleDateFormat("dd_MM_yyyy", Locale.getDefault())
-            val dateconvert = dateformate.format(calendar.time)
-            val dateformate1 = SimpleDateFormat("MM_dd_yyyy", Locale.getDefault())
-            val dateconvert1 = dateformate1.format(calendar.time)
-            val dateformate2 = SimpleDateFormat("yyyy_MM_dd", Locale.getDefault())
-            val dateconvert2 = dateformate2.format(calendar.time)
+//    fun onDatePicked(year: Int, mont: Int, dayofmont: Int) {
+//        val calendar = Calendar.getInstance()
+//        calendar.set(Calendar.YEAR, year)
+//        calendar.set(Calendar.MONTH, mont)
+//        calendar.set(Calendar.DAY_OF_MONTH, dayofmont)
+//        dateFormate(calendar)
+//    }
 
 
-            val dataEntity = DataEntity(
-                userid = loginuser?.uid,
-                timeformate1 = dateconvert,
-                timeformate2 = dateconvert1,
-                timeformate3 = dateconvert2
-            )
+    fun profileData(username: String, useremail: String) {
+        viewModelScope.launch {
+
+            val dataEntity =
+                DataEntity(
+                    userid = loginuser?.uid,
+                    username = username,
+                    useremail = useremail
+                )
             repository.insertData(dataEntity)
             getUserData()
-        }
 
-
-    }
-
-    fun deletItemOnPositon(itemposition: Int) {
-        val getitemposition = userDataListMLD.value?.get(itemposition)
-        if (getitemposition != null) {
-            deletDataItem(getitemposition)
         }
     }
+//
+//    fun dateFormate(calendar: Calendar) {
+//
+//        viewModelScope.launch{
+//            val dateformate = SimpleDateFormat("dd_MM_yyyy", Locale.getDefault())
+//            val dateconvert = dateformate.format(calendar.time)
+//            val dateformate1 = SimpleDateFormat("MM_dd_yyyy", Locale.getDefault())
+//            val dateconvert1 = dateformate1.format(calendar.time)
+//            val dateformate2 = SimpleDateFormat("yyyy_MM_dd", Locale.getDefault())
+//            val dateconvert2 = dateformate2.format(calendar.time)
+//
+//            val dataEntity = DataEntity(
+//                userid = loginuser?.uid,
+//                timeformate1 = dateconvert,
+//                timeformate2 = dateconvert1,
+//                timeformate3 = dateconvert2
+//            )
+//            repository.insertData(dataEntity)
+//            getUserData()
+//        }
+//
+//
+//    }
+
+//    fun deletItemOnPositon(itemposition: Int) {
+//        val getitemposition = userDataListMLD.value?.get(itemposition)
+//        if (getitemposition != null) {
+//            deletDataItem(getitemposition)
+//        }
+//    }
+
 
     fun logout() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             loginuser = repository.getUserLogin()
             loginuser?.islogin = false
             loginuser?.let { repository.updateUsers(it) }
@@ -150,5 +186,6 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
         }
 
     }
+
 
 }

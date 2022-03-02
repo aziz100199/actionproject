@@ -10,6 +10,7 @@
         <entry key="..\:/Users/Aziz/AndroidStudioProjects/SpinnerActivity2/app/src/main/res/layout/spiner_recyclerview_layout.xml" value="0.15537059056678557" />
         <entry key="..\:/Users/Aziz/AndroidStudioProjects/SpinnerActivity2/app/src/main/res/menu/actionmodemenu.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Aziz/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/simple_spinner_item.xml" value="0.20416666666666666" />
+        <entry key="..\:/projects/SpinnerActivity2/app/src/main/res/drawable/delet.xml" value="0.1" />
         <entry key="..\:/projects/SpinnerActivity2/app/src/main/res/layout/activity_action_mode.xml" value="0.15537059056678557" />
         <entry key="..\:/projects/SpinnerActivity2/app/src/main/res/layout/activity_collapsing_tool_bar_activitu.xml" value="0.20416666666666666" />
         <entry key="..\:/projects/SpinnerActivity2/app/src/main/res/layout/activity_data_base.xml" value="0.20416666666666666" />
@@ -20,9 +21,12 @@
         <entry key="..\:/projects/SpinnerActivity2/app/src/main/res/layout/activity_room_data_base.xml" value="0.20416666666666666" />
         <entry key="..\:/projects/SpinnerActivity2/app/src/main/res/layout/fragment_date_picker.xml" value="0.15537059056678557" />
         <entry key="..\:/projects/SpinnerActivity2/app/src/main/res/layout/fragment_login_success.xml" value="0.1" />
+        <entry key="..\:/projects/SpinnerActivity2/app/src/main/res/layout/fragment_profile.xml" value="0.15537059056678557" />
         <entry key="..\:/projects/SpinnerActivity2/app/src/main/res/layout/fragment_register.xml" value="0.14" />
         <entry key="..\:/projects/SpinnerActivity2/app/src/main/res/layout/fragment_room_login_interface.xml" value="0.20416666666666666" />
+        <entry key="..\:/projects/SpinnerActivity2/app/src/main/res/layout/fragment_succfullylogin_include_layout.xml" value="0.15537059056678557" />
         <entry key="..\:/projects/SpinnerActivity2/app/src/main/res/layout/roomadapterlayout.xml" value="0.15537059056678557" />
+        <entry key="..\:/projects/SpinnerActivity2/app/src/main/res/menu/actionmodemenu.xml" value="0.15537059056678557" />
       </map>
     </option>
   </component>

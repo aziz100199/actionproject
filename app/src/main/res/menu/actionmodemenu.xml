@@ -5,8 +5,5 @@
         android:icon="@drawable/delet"
         android:title="Delet" />
 
-    <item
-        android:id="@+id/size"
-        android:title="size"
-        />
+
 </menu>

@@ -3,6 +3,8 @@ package com.unit.spinneractivity.roomdatabase.room.repository
 import com.unit.spinneractivity.roomdatabase.room.database.UserDataBase
 import com.unit.spinneractivity.roomdatabase.room.entities.DataEntity
 import com.unit.spinneractivity.roomdatabase.room.entities.UserEntity
+import kotlinx.coroutines.*
+
 
 class UserRepository(var db: UserDataBase) {
     suspend fun checkIfUserExist(username: String, userpassword: String): Boolean {
@@ -27,13 +29,19 @@ class UserRepository(var db: UserDataBase) {
         return db.userDao().findUsers(username, userpassword)?.get(0)
 
     }
-    fun getUserLogin(): UserEntity? {
-        return db.userDao().userLogin()
+  suspend  fun getUserLogin(): UserEntity? {
+      return  withContext(Dispatchers.IO) {
+            db.userDao().userLogin()
+        }
 
     }
 
-    fun insertData(dataEntity: DataEntity) {
+  suspend fun insertData(dataEntity: DataEntity) {
+      withContext(Dispatchers.IO){
         db.dataDao().insertData(dataEntity)
+      }
+
+
     }
 
     fun getUserData(uid: Int): List<DataEntity>? {

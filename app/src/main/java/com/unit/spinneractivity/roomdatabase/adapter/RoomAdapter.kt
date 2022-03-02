@@ -22,11 +22,11 @@ class RoomAdapter : RecyclerView.Adapter<RoomAdapter.VHRoom>() {
 
     override fun onBindViewHolder(holder: RoomAdapter.VHRoom, position: Int) {
         val item = itemlist[position]
-        holder.binding.apply {
-            firsttext.text = item.timeformate1
-            secondtext.text = item.timeformate2
-            thirdtext.text = item.timeformate3
-        }
+//        holder.binding.apply {
+//            firsttext.text = item.timeformate1
+//            secondtext.text = item.timeformate2
+//            thirdtext.text = item.timeformate3
+//        }
 
     }
 
