@@ -30,7 +30,7 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
             islogin?.uid?.let {id->
                 val userData = repository.getUserData(id)
            userData?.let {
-               userdataMLD.postValue(it)
+//               userdataMLD.postValue(it)
            }
             }
 

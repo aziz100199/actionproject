@@ -39,6 +39,12 @@ class RegisterFragment : Fragment() {
 
     private fun clickListner() {
 
+        binding?.backbtn?.setOnClickListener {
+
+            viewmodel.loadFragment(LoginRegisterFragment())
+
+        }
+
         binding?.registerbtn?.setOnClickListener {
 
             val username = binding?.editregistername?.text.toString()
@@ -49,8 +55,8 @@ class RegisterFragment : Fragment() {
                     Snackbar.LENGTH_LONG).show()
             } else {
 
-                binding?.registersnackbar?.let {snackbar->
-                    viewmodel.registerUsers(username, userpassword,snackbar)
+                binding?.registersnackbar?.let { snackbar ->
+                    viewmodel.registerUsers(username, userpassword, snackbar)
                 }
 
                 Snackbar.make(binding!!.registersnackbar, "Data Inserted", Snackbar.LENGTH_LONG)

@@ -51,7 +51,7 @@ class UserRepository(var db: UserDataBase) {
 
     }
 
-    suspend fun getUserData(uid: Int): List<DataEntity>? {
+    suspend fun getUserData(uid: Int): DataEntity? {
         return withContext(Dispatchers.IO){
             db.dataDao().getAllData(uid)
         }
@@ -61,6 +61,11 @@ class UserRepository(var db: UserDataBase) {
         return db.dataDao().deletUserData(item)
     }
 
+   suspend fun updateData(dataentity: DataEntity) {
+        withContext(Dispatchers.IO){
+            db.dataDao().updateUser(dataentity)
+        }
+    }
 
 
 }

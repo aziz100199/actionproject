@@ -1,5 +1,6 @@
 package com.unit.spinneractivity.roomdatabase.fragments
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -15,12 +16,15 @@ import androidx.fragment.app.activityViewModels
 import com.unit.spinneractivity.R
 import com.unit.spinneractivity.databinding.FragmentProfileBinding
 import com.unit.spinneractivity.roomdatabase.viewmodel.RoomViewModel
+import timber.log.Timber
 
 
 class ProfileFragment : Fragment() {
 
     var binding: FragmentProfileBinding? = null
     var imagestring: String? = null
+    var name: String? = null
+    var email: String? = null
     val viewmodel by activityViewModels<RoomViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +40,17 @@ class ProfileFragment : Fragment() {
 
         insertValue()
         statusBar()
+        subscribeobserver()
 
+    }
+
+    private fun subscribeobserver() {
+        viewmodel.userDataListLD.observe(viewLifecycleOwner) {
+            binding?.nameedittext?.setText(it.username)
+            binding?.emailedittext?.setText(it.useremail)
+//            name = it.username
+//            email = it.useremail
+        }
     }
 
     private fun statusBar() {
@@ -47,25 +61,27 @@ class ProfileFragment : Fragment() {
     }
 
     private fun insertValue() {
-        binding?.submitbtn?.setOnClickListener {
 
+        binding?.submitbtn?.setOnClickListener {
             val username = binding?.nameedittext?.text.toString()
             val useremail = binding?.emailedittext?.text.toString()
             if (username.isEmpty() && useremail.isEmpty()) {
                 Toast.makeText(requireContext(), "Please put both fields", Toast.LENGTH_SHORT)
                     .show()
             } else {
+                viewmodel.updateuser(username, useremail)
                 viewmodel.profileData(username, useremail, imagestring)
+
                 Toast.makeText(requireContext(), "inserted successfully", Toast.LENGTH_SHORT)
                     .show()
-                viewmodel.loadFragment(LoginSuccessFragment())
+
             }
         }
 
         binding?.insertimage?.setOnClickListener {
             val inten = Intent()
             inten.type = "image/*"
-            inten.setAction(Intent.ACTION_GET_CONTENT)
+            inten.setAction(Intent.ACTION_OPEN_DOCUMENT)
             val Pick_Image = 1
             startActivityForResult(Intent.createChooser(inten, "select image"), Pick_Image)
         }
@@ -73,7 +89,7 @@ class ProfileFragment : Fragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, intentdata: Intent?) {
-        if (requestCode == 1) {
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
             val imageuri: Uri = intentdata?.data!!
             imagestring = intentdata.data?.toString()
             binding?.insertimage?.setImageURI(imageuri)

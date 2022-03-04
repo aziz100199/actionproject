@@ -17,6 +17,7 @@ import com.unit.spinneractivity.databinding.FragmentLoginSuccessBinding
 import com.unit.spinneractivity.roomdatabase.adapter.RoomAdapter
 import com.unit.spinneractivity.roomdatabase.room.entities.DataEntity
 import com.unit.spinneractivity.roomdatabase.viewmodel.RoomViewModel
+import timber.log.Timber
 
 
 class LoginSuccessFragment : Fragment() {
@@ -62,17 +63,27 @@ class LoginSuccessFragment : Fragment() {
     }
 
     private fun checkProfileInformation() {
-
         binding?.snackbar?.let { viewmodel.checkUserProfile(it) }
-
     }
 
     private fun suscribeobserver() {
-        viewmodel.userDataListLD.observe(viewLifecycleOwner) {
-            if (!it.isEmpty()) {
-                observeableData(it)
+        viewmodel.userDataListLD.observe(viewLifecycleOwner) { dataentity ->
+          Timber.d("username ${dataentity.useremail}")
+            if (dataentity.username != null) {
+                binding?.extralayout?.usernamedisplay?.text = dataentity.username
+            } else {
+                binding?.snackbar?.let { viewmodel.checkUserProfile(it) }
             }
-
+            if (dataentity.useremail != null) {
+                binding?.extralayout?.emaildisplay?.text = dataentity.useremail
+            } else {
+                binding?.snackbar?.let { viewmodel.checkUserProfile(it) }
+            }
+            if (dataentity.imageuri != null) {
+//                binding?.extralayout?.profilepicture?.setImageURI(Uri.parse(dataentity.imageuri))
+            } else {
+                binding?.snackbar?.let { viewmodel.checkUserProfile(it) }
+            }
 //roomadatapter.datsset(it)
 //checklistisEmpy?.addAll(it)
 
@@ -81,17 +92,14 @@ class LoginSuccessFragment : Fragment() {
 
     }
 
-    private fun observeableData(list: List<DataEntity>) {
-        if (list.get(0).username != null)
-            binding?.extralayout?.usernamedisplay?.text = list.get(0).username
-        if (list.get(0).useremail != null)
-            binding?.extralayout?.emaildisplay?.text = list.get(0).useremail
-        if (list.get(0).imageuri != null)
-            binding?.extralayout?.profilepicture?.setImageURI(Uri.parse(list.get(0).imageuri))
-    }
-
 
     private fun clicklistner() {
+        binding?.extralayout?.emaildisplay?.setOnClickListener {
+            viewmodel.loadFragment(ProfileFragment())
+        }
+        binding?.extralayout?.usernamedisplay?.setOnClickListener {
+            viewmodel.loadFragment(ProfileFragment())
+        }
         binding?.logout?.setOnClickListener {
             viewmodel.logout()
             viewmodel.loadFragment(LoginRegisterFragment())

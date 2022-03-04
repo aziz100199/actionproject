@@ -1,20 +1,20 @@
 package com.unit.spinneractivity.roomdatabase.room.dao
 
-import android.service.autofill.UserData
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.unit.spinneractivity.roomdatabase.room.entities.DataEntity
 
 @Dao
 interface DataDao {
     @Insert
- fun insertData(userEntity: DataEntity)
+    fun insertData(userEntity: DataEntity)
 
     @Query("SELECT * FROM DataEntity WHERE userid=:uid")
-    fun getAllData(uid: Int): List<DataEntity>?
+    fun getAllData(uid: Int): DataEntity?
+
     @Delete
-    fun deletUserData(item:DataEntity)
+    fun deletUserData(item: DataEntity)
+
+    @Update
+    fun updateUser(dataentity: DataEntity)
 
 }
