@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -79,6 +80,10 @@ class ProfileFragment : Fragment() {
         }
 
         binding?.insertimage?.setOnClickListener {
+
+            val takepicture=Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+
+
             val inten = Intent()
             inten.type = "image/*"
             inten.setAction(Intent.ACTION_OPEN_DOCUMENT)

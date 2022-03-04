@@ -1,5 +1,8 @@
 package com.unit.spinneractivity.roomdatabase.fragments
 
+import android.annotation.SuppressLint
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +14,7 @@ import com.unit.spinneractivity.RoomDbActivity
 import com.unit.spinneractivity.databinding.FragmentRoomLoginInterfaceBinding
 import com.unit.spinneractivity.roomdatabase.room.entities.UserEntity
 import com.unit.spinneractivity.roomdatabase.viewmodel.RoomViewModel
+import timber.log.Timber
 
 
 class LoginRegisterFragment() : Fragment() {
@@ -28,10 +32,14 @@ class LoginRegisterFragment() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+//        checkexistingvalue()
         clickListner()
         subscribeObservers()
         toolbar()
+
     }
+
+
 
     private fun toolbar() {
         (requireContext() as RoomDbActivity).setSupportActionBar(binding?.toolbar)
@@ -63,8 +71,7 @@ class LoginRegisterFragment() : Fragment() {
                     Snackbar.LENGTH_LONG).show()
             } else {
                 binding?.loginsnackbar?.let { it1 ->
-                    viewmodel.submitLoginData(username, userpassword,
-                        it1)
+                    viewmodel.submitLoginData(username, userpassword)
                 }
             }
         }

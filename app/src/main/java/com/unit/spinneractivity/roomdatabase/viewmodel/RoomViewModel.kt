@@ -1,6 +1,8 @@
 package com.unit.spinneractivity.roomdatabase.viewmodel
 
 import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -21,7 +23,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
+
 class RoomViewModel(application: Application) : AndroidViewModel(application) {
+    val sp: SharedPreferences =
+        application.getSharedPreferences("logininf",
+            Context.MODE_PRIVATE)
+
     private var loginuser: UserEntity? = null
     private val db = UserDataBase.get(application)
     val repository = UserRepository(db)
@@ -51,8 +58,17 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
 
     fun load() {
         viewModelScope.launch {
-            val user = repository.getUserLogin()
-            if (user?.islogin == true) {
+            val name = sp.getString("username", null)
+            val psd = sp.getString("userpassword", null)
+            Timber.d("Loadfragment vlue $name")
+            name?.let { logname ->
+                psd?.let { logpsd ->
+                    submitLoginData(logname, logpsd)
+                }
+            }
+
+
+            if (loginuser?.islogin == true) {
                 Timber.d("load1")
                 loadFragment(LoginSuccessFragment())
 
@@ -72,8 +88,15 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun submitLoginData(username: String, userpassword: String, loginsnackbar: View) {
+    fun submitLoginData(username: String, userpassword: String) {
         viewModelScope.launch(Dispatchers.IO) {
+
+            val editor: SharedPreferences.Editor = sp.edit()
+            editor.putString("username", username)
+            editor.putString("userpassword", userpassword)
+            editor.apply()
+
+
             val checkUsers = repository.checkIfUserExist(username, userpassword)
             if (checkUsers == true) {
                 loginuser = repository.getUser(username, userpassword)
@@ -85,7 +108,7 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
 
                 }
             } else {
-                snackBar(loginsnackbar, "incorrect email or pasword")
+//                snackBar(loginsnackbar, "incorrect email or pasword")
             }
         }
     }
@@ -198,13 +221,13 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
 
     fun logout() {
         viewModelScope.launch {
-            val userr = repository.getUserLogin()
-            Timber.d("logout first ${userr?.islogin}")
-            userr?.islogin = false
-            userr?.let {
+
+            loginuser?.islogin = false
+            loginuser?.let {
                 repository.updateUsers(it)
             }
-            Timber.d("logout second ${userr?.islogin}")
+            sp.edit().clear().apply()
+            Timber.d("logout second ${loginuser?.islogin}")
         }
 
     }
@@ -229,3 +252,4 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
 
 
 }
+
