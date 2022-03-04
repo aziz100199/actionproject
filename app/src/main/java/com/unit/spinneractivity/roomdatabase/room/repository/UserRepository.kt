@@ -21,12 +21,19 @@ class UserRepository(var db: UserDataBase) {
 
     }
 
-    fun updateUsers(userEntity: UserEntity) {
-        db.userDao().updateUser(userEntity)
+    suspend fun updateUsers(userEntity: UserEntity) {
+        withContext(Dispatchers.IO){
+            db.userDao().updateUser(userEntity)
+        }
+
     }
 
     fun getUser(username: String, userpassword: String): UserEntity? {
         return db.userDao().findUsers(username, userpassword)?.get(0)
+
+    }
+    fun sigleuser(username: String, userpassword: String): UserEntity? {
+        return db.userDao().checkSingleuser(username, userpassword)
 
     }
   suspend  fun getUserLogin(): UserEntity? {
@@ -44,8 +51,10 @@ class UserRepository(var db: UserDataBase) {
 
     }
 
-    fun getUserData(uid: Int): List<DataEntity>? {
-        return db.dataDao().getAllData(uid)
+    suspend fun getUserData(uid: Int): List<DataEntity>? {
+        return withContext(Dispatchers.IO){
+            db.dataDao().getAllData(uid)
+        }
     }
 
     fun deletItem(item: DataEntity) {

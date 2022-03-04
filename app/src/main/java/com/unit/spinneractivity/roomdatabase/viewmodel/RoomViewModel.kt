@@ -23,18 +23,21 @@ import timber.log.Timber
 
 class RoomViewModel(application: Application) : AndroidViewModel(application) {
     private var loginuser: UserEntity? = null
+    var user: UserEntity? = null
     private val db = UserDataBase.get(application)
     val repository = UserRepository(db)
 
     private var userDataListMLD = MutableLiveData(listOf<DataEntity>())
     var userDataListLD = liveData {
         emitSource(userDataListMLD)
+
     }
 
 
     private var fragmentMLD = MutableLiveData<Fragment>()
     var fragmentLD = liveData {
         emitSource(fragmentMLD)
+
     }
 
 
@@ -45,23 +48,37 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun load() {
+        viewModelScope.launch {
+            val user = repository.getUserLogin()
+            if (user?.islogin == true) {
+                Timber.d("load1")
+
+                loadFragment(LoginSuccessFragment())
+            } else {
+                Timber.d("load2")
+                loadFragment(LoginRegisterFragment())
+            }
+        }
+    }
+
     fun deletDataItem(item: DataEntity) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.deletItem(item)
             getUserData()
 
+
         }
     }
 
-    fun submitLoginData(username: String, userpassword: String) {
-        Timber.d("username $username & password $userpassword")
+    fun submitLoginData(username: String, userpassword: String, loginsnackbar: View) {
+
         viewModelScope.launch(Dispatchers.IO) {
             val checkUsers = repository.checkIfUserExist(username, userpassword)
             if (checkUsers == true) {
                 loginuser = repository.getUser(username, userpassword)
-                Timber.d("submit id ${loginuser?.uid}")
+
                 loginuser?.let {
-                    repository
                     it.islogin = true
                     repository.updateUsers(it)
                     getUserData()
@@ -69,26 +86,29 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
 
                 }
             } else {
-                // TODO: pleaseregister
+                snackBar(loginsnackbar, "incorrect email or pasword")
             }
         }
-
     }
 
 
     private fun getUserData() {
-        loginuser?.uid?.let { uid ->
-            val userData = repository.getUserData(uid)
-            userData?.let {
-                userDataListMLD.postValue(it)
+        viewModelScope.launch {
+            loginuser?.uid?.let { uid ->
+                val userData = repository.getUserData(uid)
+                userData?.let {
+                    userDataListMLD.postValue(it)
+                }
             }
         }
+
     }
 
     fun checkUserProfile(view: View) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             loginuser?.uid?.let {
                 val data = repository.getUserData(it)
+
                 data?.let {
                     if (it.isEmpty()) {
                         Snackbar.make(view,
@@ -108,21 +128,44 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
 
     }
 
-    fun registerUsers(username: String, userpassword: String) {
+    fun registerUsers(username: String, userpassword: String, registersnackbar: View) {
         viewModelScope.launch(Dispatchers.IO) {
-            val userEntity = UserEntity(username = username, password = userpassword)
-            val isInserted = repository.regiseterUser(userEntity)
-            if (isInserted > 0) {
-                fragmentMLD.postValue(LoginRegisterFragment())
+            val getuser = repository.db.userDao().checkSingleuser(username, userpassword)
+            if (getuser?.username == username) {
+                snackBar(registersnackbar, "user already exit")
             } else {
 
-                // TODO: notifiyerror
+                val userEntity = UserEntity(username = username, password = userpassword)
+                val isInserted = repository.regiseterUser(userEntity)
+                if (isInserted > 0) {
+                    fragmentMLD.postValue(LoginRegisterFragment())
 
+                } else {
+
+                    // TODO: notifiyerror
+
+                }
             }
+
         }
     }
 
-//    fun onDatePicked(year: Int, mont: Int, dayofmont: Int) {
+
+    fun profileData(username: String, useremail: String, imagestring: String?) {
+        viewModelScope.launch {
+            val dataEntity =
+                DataEntity(
+                    userid = loginuser?.uid,
+                    username = username,
+                    useremail = useremail,
+                    imageuri = imagestring
+                )
+            repository.insertData(dataEntity)
+            getUserData()
+        }
+    }
+
+    //    fun onDatePicked(year: Int, mont: Int, dayofmont: Int) {
 //        val calendar = Calendar.getInstance()
 //        calendar.set(Calendar.YEAR, year)
 //        calendar.set(Calendar.MONTH, mont)
@@ -130,21 +173,6 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
 //        dateFormate(calendar)
 //    }
 
-
-    fun profileData(username: String, useremail: String) {
-        viewModelScope.launch {
-
-            val dataEntity =
-                DataEntity(
-                    userid = loginuser?.uid,
-                    username = username,
-                    useremail = useremail
-                )
-            repository.insertData(dataEntity)
-            getUserData()
-
-        }
-    }
 //
 //    fun dateFormate(calendar: Calendar) {
 //
@@ -179,12 +207,19 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
 
     fun logout() {
         viewModelScope.launch {
-            loginuser = repository.getUserLogin()
-            loginuser?.islogin = false
-            loginuser?.let { repository.updateUsers(it) }
 
+            val userr = repository.getUserLogin()
+            userr?.islogin = false
+            userr?.let { repository.updateUsers(it) }
+            Timber.d("logout second ${userr?.islogin}")
         }
 
+    }
+
+    fun snackBar(view: View, text: String) {
+        Snackbar.make(view,
+            text,
+            Snackbar.LENGTH_SHORT).show()
     }
 
 

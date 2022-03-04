@@ -65,7 +65,6 @@ dependencies {
     kapt("androidx.room:room-compiler:$roomVersion")
 
 
-
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:$roomVersion")
 
@@ -84,7 +83,7 @@ dependencies {
     // optional - Paging 3 Integration
     implementation("androidx.room:room-paging:2.4.2")
 
-
-
+// image in circle
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
 }

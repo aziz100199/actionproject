@@ -35,7 +35,7 @@ class LoginRegisterFragment() : Fragment() {
 
     private fun toolbar() {
         (requireContext() as RoomDbActivity).setSupportActionBar(binding?.toolbar)
-        (requireContext() as RoomDbActivity).supportActionBar?.title="User Login"
+        (requireContext() as RoomDbActivity).supportActionBar?.title = "User Login"
         (requireContext() as RoomDbActivity).getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
         (requireContext() as RoomDbActivity).getSupportActionBar()?.setDisplayShowHomeEnabled(true)
 
@@ -45,13 +45,16 @@ class LoginRegisterFragment() : Fragment() {
 
 
     }
+
     private fun clickListner() {
         binding?.registerbtn?.setOnClickListener {
             viewmodel.loadFragment(RegisterFragment())
         }
 
         binding?.loginbtn?.setOnClickListener {
+
             val username = binding?.editloginname?.text.toString()
+
             val userpassword = binding?.editpassword?.text.toString()
 
             if (username.isEmpty() || userpassword.isEmpty()) {
@@ -59,14 +62,13 @@ class LoginRegisterFragment() : Fragment() {
                     "please enter both fields",
                     Snackbar.LENGTH_LONG).show()
             } else {
-                viewmodel.submitLoginData(username, userpassword)
+                binding?.loginsnackbar?.let { it1 ->
+                    viewmodel.submitLoginData(username, userpassword,
+                        it1)
+                }
             }
         }
-
-
     }
-
-
 
 
 }

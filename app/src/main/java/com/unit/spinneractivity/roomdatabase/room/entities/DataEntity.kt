@@ -12,6 +12,7 @@ data class DataEntity(
     @ColumnInfo(name = "userinfo")
     var username:String?=null,
     var useremail:String?=null,
+    var imageuri:String?=null,
 //    var timeformate1: String? = null,
 //    var timeformate2: String? = null,
 //    var timeformate3: String? = null,

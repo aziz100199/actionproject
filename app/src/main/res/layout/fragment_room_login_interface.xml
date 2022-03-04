@@ -4,87 +4,119 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/loginbackground"
     tools:context=".roomdatabase.fragments.LoginRegisterFragment">
 
-    <TextView
-        android:id="@+id/loginname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="100dp"
-        android:text="Enter login name"
-        app:layout_constraintBottom_toTopOf="@id/editloginname"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/purple_700"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:title="LoginUser"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="@color/white" />
 
-    <EditText
-        android:id="@+id/editloginname"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="Enter your name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/loginname" />
-
-    <TextView
-        android:id="@+id/password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:text="Enter login name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editloginname" />
-
-    <EditText
-        android:id="@+id/editpassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="Enter your password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/password" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@color/white"
+            android:elevation="10dp"
+            android:padding="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
 
 
-    <Button
-        android:id="@+id/loginbtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:backgroundTint="@color/teal_700"
-        android:text="login"
-        app:layout_constraintEnd_toStartOf="@id/registerbtn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editpassword" />
+            <TextView
+                android:id="@+id/loginname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="Enter login name"
 
-    <Button
-        android:id="@+id/registerbtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:backgroundTint="@color/green"
-        android:text="register"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/loginbtn"
-        app:layout_constraintTop_toBottomOf="@id/editpassword" />
+                android:textSize="17sp"
+                app:layout_constraintBottom_toTopOf="@id/editloginname"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/editloginname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:hint="@string/enter_your_name"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/loginname" />
+
+            <TextView
+                android:id="@+id/password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="Enter login name"
+
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editloginname" />
+
+            <EditText
+                android:id="@+id/editpassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:hint="@string/enter_your_password"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/password" />
 
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/loginsnackbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+            <Button
+                android:id="@+id/loginbtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:backgroundTint="@color/teal_700"
+                android:text="login"
+                android:textAllCaps="false"
+                app:layout_constraintEnd_toStartOf="@id/registerbtn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editpassword" />
+
+            <Button
+                android:id="@+id/registerbtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:backgroundTint="@color/teal_700"
+                android:text="register"
+                android:textAllCaps="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/loginbtn"
+                app:layout_constraintTop_toBottomOf="@id/editpassword" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/loginsnackbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

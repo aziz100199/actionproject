@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.snackbar.Snackbar
+import com.unit.spinneractivity.RoomDbActivity
 import com.unit.spinneractivity.databinding.FragmentRegisterBinding
-import com.unit.spinneractivity.roomdatabase.room.entities.UserEntity
 import com.unit.spinneractivity.roomdatabase.viewmodel.RoomViewModel
 
 
 class RegisterFragment : Fragment() {
     var binding: FragmentRegisterBinding? = null
-    var list = mutableListOf<UserEntity>()
+
     val viewmodel by activityViewModels<RoomViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,7 +29,12 @@ class RegisterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         clickListner()
+        toolbar()
 
+    }
+
+    private fun toolbar() {
+        (requireContext() as RoomDbActivity).setSupportActionBar(binding?.toolbar)
     }
 
     private fun clickListner() {
@@ -44,7 +49,9 @@ class RegisterFragment : Fragment() {
                     Snackbar.LENGTH_LONG).show()
             } else {
 
-                viewmodel.registerUsers(username, userpassword)
+                binding?.registersnackbar?.let {snackbar->
+                    viewmodel.registerUsers(username, userpassword,snackbar)
+                }
 
                 Snackbar.make(binding!!.registersnackbar, "Data Inserted", Snackbar.LENGTH_LONG)
                     .show()
