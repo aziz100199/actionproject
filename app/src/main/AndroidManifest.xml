@@ -3,7 +3,7 @@
     package="com.unit.spinneractivity">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -19,7 +19,8 @@
         android:theme="@style/Theme.SpinnerActivity">
         <activity
             android:name=".RoomDbActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
 
         <activity
             android:name=".DatePickerActivity"

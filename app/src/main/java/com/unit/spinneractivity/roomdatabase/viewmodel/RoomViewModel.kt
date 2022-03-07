@@ -132,10 +132,11 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
 
             Snackbar.make(view,
                 "Please fill your informaton",
-                Snackbar.LENGTH_INDEFINITE).setAction("Profile") {
-                loadFragment(ProfileFragment())
+                Snackbar.LENGTH_INDEFINITE)
+                .setAction("ok") {
+
             }.setActionTextColor(ContextCompat.getColor(getApplication(),
-                R.color.green))
+                R.color.white))
                 .setBackgroundTint(ContextCompat.getColor(getApplication(),
                     R.color.black)).show()
         }

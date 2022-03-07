@@ -44,7 +44,7 @@ class LoginSuccessFragment : Fragment() {
 
         clicklistner()
         suscribeobserver()
-        checkProfileInformation()
+//        checkProfileInformation()
         actionbar()
 
         //itemTouchListner()
@@ -67,8 +67,9 @@ class LoginSuccessFragment : Fragment() {
     }
 
     private fun suscribeobserver() {
+
         viewmodel.userDataListLD.observe(viewLifecycleOwner) { dataentity ->
-          Timber.d("username ${dataentity.useremail}")
+            Timber.d("username ${dataentity.useremail}")
             if (dataentity.username != null) {
                 binding?.extralayout?.usernamedisplay?.text = dataentity.username
             } else {
@@ -80,7 +81,7 @@ class LoginSuccessFragment : Fragment() {
                 binding?.snackbar?.let { viewmodel.checkUserProfile(it) }
             }
             if (dataentity.imageuri != null) {
-//                binding?.extralayout?.profilepicture?.setImageURI(Uri.parse(dataentity.imageuri))
+                binding?.extralayout?.profilepicture?.setImageURI(Uri.parse(dataentity.imageuri))
             } else {
                 binding?.snackbar?.let { viewmodel.checkUserProfile(it) }
             }
@@ -98,6 +99,9 @@ class LoginSuccessFragment : Fragment() {
             viewmodel.loadFragment(ProfileFragment())
         }
         binding?.extralayout?.usernamedisplay?.setOnClickListener {
+            viewmodel.loadFragment(ProfileFragment())
+        }
+        binding?.extralayout?.profilepicture?.setOnClickListener {
             viewmodel.loadFragment(ProfileFragment())
         }
         binding?.logout?.setOnClickListener {
