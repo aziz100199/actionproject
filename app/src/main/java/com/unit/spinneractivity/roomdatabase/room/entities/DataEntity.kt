@@ -13,6 +13,8 @@ data class DataEntity(
     var username:String?=null,
     var useremail:String?=null,
     var imageuri:String?=null,
+    var userphone:String?=null,
+    var useraddress:String?=null,
 //    var timeformate1: String? = null,
 //    var timeformate2: String? = null,
 //    var timeformate3: String? = null,

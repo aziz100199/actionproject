@@ -1,26 +1,22 @@
 package com.unit.spinneractivity.roomdatabase.fragments
 
-import android.annotation.SuppressLint
-import android.content.Context.MODE_PRIVATE
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.google.android.material.snackbar.Snackbar
 import com.unit.spinneractivity.RoomDbActivity
 import com.unit.spinneractivity.databinding.FragmentRoomLoginInterfaceBinding
 import com.unit.spinneractivity.roomdatabase.room.entities.UserEntity
 import com.unit.spinneractivity.roomdatabase.viewmodel.RoomViewModel
-import timber.log.Timber
 
 
 class LoginRegisterFragment() : Fragment() {
     var binding: FragmentRoomLoginInterfaceBinding? = null
     var loginEntity = UserEntity()
-    val viewmodel by activityViewModels<RoomViewModel>()
+    val viewmodel by viewModels<RoomViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -38,7 +34,6 @@ class LoginRegisterFragment() : Fragment() {
         toolbar()
 
     }
-
 
 
     private fun toolbar() {

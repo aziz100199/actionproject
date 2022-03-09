@@ -14,7 +14,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.unit.spinneractivity.R
 import com.unit.spinneractivity.roomdatabase.fragments.LoginRegisterFragment
 import com.unit.spinneractivity.roomdatabase.fragments.LoginSuccessFragment
-import com.unit.spinneractivity.roomdatabase.fragments.ProfileFragment
 import com.unit.spinneractivity.roomdatabase.room.database.UserDataBase
 import com.unit.spinneractivity.roomdatabase.room.entities.DataEntity
 import com.unit.spinneractivity.roomdatabase.room.entities.UserEntity
@@ -50,8 +49,9 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
     fun loadFragment(fragment: Fragment) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.test()
-            getUserData()
             fragmentMLD.postValue(fragment)
+            Timber.d("load fragment call")
+            getUserData()
 
         }
     }
@@ -60,7 +60,6 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             val name = sp.getString("username", null)
             val psd = sp.getString("userpassword", null)
-            Timber.d("Loadfragment vlue $name")
             name?.let { logname ->
                 psd?.let { logpsd ->
                     submitLoginData(logname, logpsd)
@@ -96,7 +95,6 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
             editor.putString("userpassword", userpassword)
             editor.apply()
 
-
             val checkUsers = repository.checkIfUserExist(username, userpassword)
             if (checkUsers == true) {
                 loginuser = repository.getUser(username, userpassword)
@@ -116,9 +114,10 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
 
     private fun getUserData() {
         viewModelScope.launch {
-            Timber.d("in view model uid ${loginuser?.uid}")
+            Timber.d("get user in view model uid ${loginuser?.uid}")
             loginuser?.uid?.let { uid ->
                 val userData = repository.getUserData(uid)
+                Timber.d("get user loginuser ${userData?.username}")
                 userData?.let {
                     userDataListMLD.postValue(it)
                 }
@@ -135,8 +134,8 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
                 Snackbar.LENGTH_INDEFINITE)
                 .setAction("ok") {
 
-            }.setActionTextColor(ContextCompat.getColor(getApplication(),
-                R.color.white))
+                }.setActionTextColor(ContextCompat.getColor(getApplication(),
+                    R.color.white))
                 .setBackgroundTint(ContextCompat.getColor(getApplication(),
                     R.color.black)).show()
         }
@@ -164,16 +163,25 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
     }
 
 
-    fun profileData(username: String, useremail: String, imagestring: String?) {
+    fun profileData(
+        username: String,
+        useremail: String,
+        imagestring: String?,
+        userphone: String,
+        useraddress: String,
+    ) {
         viewModelScope.launch {
-            Timber.d("user id ${loginuser?.uid}")
+            Timber.d("Register time user id ${loginuser?.uid}")
             val dataEntity =
                 DataEntity(
                     userid = loginuser?.uid,
                     username = username,
                     useremail = useremail,
-                    imageuri = imagestring
+                    imageuri = imagestring,
+                    userphone = userphone,
+                    useraddress = useraddress
                 )
+
             repository.insertData(dataEntity)
             getUserData()
             loadFragment(LoginSuccessFragment())
@@ -222,12 +230,13 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
 
     fun logout() {
         viewModelScope.launch {
-
             loginuser?.islogin = false
             loginuser?.let {
                 repository.updateUsers(it)
+                sp.edit().clear().apply()
             }
-            sp.edit().clear().apply()
+            loadFragment(LoginRegisterFragment())
+            Timber.d("Sharepreference values ${sp.getString("username", null)}")
             Timber.d("logout second ${loginuser?.islogin}")
         }
 
@@ -239,14 +248,17 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
             Snackbar.LENGTH_SHORT).show()
     }
 
-    fun updateuser(usernameupdate: String, useremailupdate: String) {
-        Timber.d("updateuserCall")
+    fun updateuser(
+        dataentity: DataEntity,
+    ) {
+
         viewModelScope.launch {
-            Timber.d("username ${usernameupdate}")
-            val dataentity = DataEntity(username = usernameupdate, useremail = useremailupdate)
+
+            Timber.d("username ${dataentity}")
             repository.updateData(dataentity)
-            loadFragment(LoginSuccessFragment())
             getUserData()
+            loadFragment(LoginSuccessFragment())
+
         }
 
     }

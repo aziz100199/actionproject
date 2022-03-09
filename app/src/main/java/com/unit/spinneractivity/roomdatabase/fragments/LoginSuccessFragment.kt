@@ -1,5 +1,6 @@
 package com.unit.spinneractivity.roomdatabase.fragments
 
+import android.Manifest
 import android.app.DatePickerDialog
 import android.net.Uri
 import android.os.Bundle
@@ -8,7 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.appcompat.view.ActionMode
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.unit.spinneractivity.R
@@ -41,17 +44,25 @@ class LoginSuccessFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        permissions()
         clicklistner()
         suscribeobserver()
-//        checkProfileInformation()
         actionbar()
+//        checkProfileInformation()
 
         //itemTouchListner()
 //        recycler()
 //        datePickder()
 //        actionmode()
 
+    }
+
+    private fun permissions() {
+        ActivityCompat.requestPermissions(requireActivity(),
+            arrayOf(Manifest.permission.CAMERA,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE),
+            1)
     }
 
     private fun actionbar() {
@@ -69,7 +80,8 @@ class LoginSuccessFragment : Fragment() {
     private fun suscribeobserver() {
 
         viewmodel.userDataListLD.observe(viewLifecycleOwner) { dataentity ->
-            Timber.d("username ${dataentity.useremail}")
+
+            Timber.d("username ${dataentity.username}")
             if (dataentity.username != null) {
                 binding?.extralayout?.usernamedisplay?.text = dataentity.username
             } else {
@@ -80,11 +92,26 @@ class LoginSuccessFragment : Fragment() {
             } else {
                 binding?.snackbar?.let { viewmodel.checkUserProfile(it) }
             }
+
             if (dataentity.imageuri != null) {
-                binding?.extralayout?.profilepicture?.setImageURI(Uri.parse(dataentity.imageuri))
+
+                Timber.d("image success uri ${dataentity.imageuri}"
+                )
+                binding?.extralayout?.profilepicture?.setImageURI(dataentity.imageuri!!.toUri())
             } else {
                 binding?.snackbar?.let { viewmodel.checkUserProfile(it) }
             }
+            if (dataentity.userphone != null) {
+                binding?.extralayout?.phonedisplay?.text = dataentity.userphone
+            } else {
+                binding?.snackbar?.let { viewmodel.checkUserProfile(it) }
+            }
+            if (dataentity.useraddress != null) {
+                binding?.extralayout?.adressdisplay?.text = dataentity.useraddress
+            } else {
+                binding?.snackbar?.let { viewmodel.checkUserProfile(it) }
+            }
+
 //roomadatapter.datsset(it)
 //checklistisEmpy?.addAll(it)
 
@@ -106,7 +133,7 @@ class LoginSuccessFragment : Fragment() {
         }
         binding?.logout?.setOnClickListener {
             viewmodel.logout()
-            viewmodel.loadFragment(LoginRegisterFragment())
+
 
         }
 

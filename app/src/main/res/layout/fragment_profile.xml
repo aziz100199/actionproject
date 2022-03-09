@@ -11,8 +11,6 @@
         android:id="@+id/topconstraint"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
         android:background="@drawable/profilebackground"
         android:elevation="8dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,7 +22,7 @@
             android:id="@+id/insertimage"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:src="@drawable/profilepicture"
+            android:src="@drawable/profileeimage"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,70 +40,156 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <TextView
-        android:id="@+id/profiletext"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/informationconstraint"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:fontFamily="sans-serif-medium"
-        android:text="Put Your Profile Information"
-        android:textSize="20sp"
+        android:background="@drawable/acountinfo_background"
+        android:padding="10dp"
+        android:translationZ="90dp"
+        app:layout_constraintBottom_toBottomOf="@id/topconstraint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topconstraint" />
+        app:layout_constraintTop_toBottomOf="@id/topconstraint">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:padding="10dp"
+            android:text="Put Acount Info"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <TextView
         android:id="@+id/nameview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="40dp"
+        android:drawableStart="@drawable/name"
         android:fontFamily="sans-serif-medium"
         android:text="Name"
         android:textSize="17sp"
-        app:layout_constraintStart_toStartOf="@+id/profiletext"
-        app:layout_constraintTop_toBottomOf="@id/profiletext" />
+        app:layout_constraintBottom_toTopOf="@+id/nameedittext"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topconstraint" />
 
     <EditText
         android:id="@+id/nameedittext"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+
         android:hint="@string/put_your_name"
+        android:imeOptions="actionNext"
         android:nextFocusForward="@id/emailedittext"
         android:singleLine="true"
+        app:layout_constraintBottom_toTopOf="@+id/emailview"
         app:layout_constraintStart_toStartOf="@id/nameview"
-        app:layout_constraintTop_toBottomOf="@id/nameview" />
+        app:layout_constraintTop_toBottomOf="@+id/nameview" />
 
     <TextView
         android:id="@+id/emailview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
+        android:drawableStart="@drawable/email"
         android:fontFamily="sans-serif-medium"
-
         android:text="Email"
         android:textSize="17sp"
+        app:layout_constraintBottom_toTopOf="@+id/emailedittext"
         app:layout_constraintStart_toStartOf="@id/nameedittext"
-        app:layout_constraintTop_toBottomOf="@id/nameedittext" />
+        app:layout_constraintTop_toBottomOf="@+id/nameedittext" />
 
     <EditText
         android:id="@+id/emailedittext"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:hint="put your email"
-        android:singleLine="true"
-        app:layout_constraintStart_toStartOf="@id/emailview"
-        app:layout_constraintTop_toBottomOf="@id/emailview" />
 
-    <Button
-        android:id="@+id/submitbtn"
+        android:imeOptions="actionNext"
+        android:singleLine="true"
+        app:layout_constraintBottom_toTopOf="@+id/phoneview"
+        app:layout_constraintStart_toStartOf="@id/emailview"
+        app:layout_constraintTop_toBottomOf="@+id/emailview" />
+
+
+    <TextView
+        android:id="@+id/phoneview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:backgroundTint="@color/orange"
-        android:text="submit"
+        android:layout_marginTop="10dp"
+        android:drawableStart="@drawable/phone"
+        android:fontFamily="sans-serif-medium"
+        android:text="Phone No."
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/phoneedittext"
+        app:layout_constraintStart_toStartOf="@id/emailedittext"
+        app:layout_constraintTop_toBottomOf="@+id/emailedittext" />
+
+    <EditText
+        android:id="@+id/phoneedittext"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:hint="user email"
+        android:imeOptions="actionNext"
+        android:inputType="phone"
+        android:singleLine="true"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/adressview"
+        app:layout_constraintStart_toStartOf="@id/phoneview"
+        app:layout_constraintTop_toBottomOf="@+id/phoneview" />
+
+    <TextView
+        android:id="@+id/adressview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:drawableStart="@drawable/location"
+        android:fontFamily="sans-serif-medium"
+        android:text="address"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/adressedittext"
+        app:layout_constraintStart_toStartOf="@id/phoneedittext"
+        app:layout_constraintTop_toBottomOf="@+id/phoneedittext" />
+
+    <EditText
+        android:id="@+id/adressedittext"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:hint="user email"
+        android:nextFocusForward="@id/insertbtn"
+        android:singleLine="true"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/insertbtn"
+        app:layout_constraintStart_toStartOf="@id/adressview"
+        app:layout_constraintTop_toBottomOf="@+id/adressview" />
+
+    <Button
+        android:id="@+id/insertbtn"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/teal_200"
+        android:text="insert"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/updatebtn"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/updatebtn"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/teal_200"
+        android:text="update"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@id/insertbtn" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
