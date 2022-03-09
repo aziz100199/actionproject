@@ -113,6 +113,7 @@ class ProfileFragment : Fragment() {
                 Timber.d("username $username")
                 Timber.d("imageuri in insert ${imagestring}")
                 viewmodel.profileData(username, useremail, imagestring, userphone, useraddress)
+
                 Toast.makeText(requireContext(), "inserted successfully", Toast.LENGTH_SHORT)
                     .show()
 
@@ -220,6 +221,7 @@ class ProfileFragment : Fragment() {
                 alertDialog?.dismiss()
             }
             if (requestCode == requestcondeforcamera && resultCode == Activity.RESULT_OK) {
+
                 val imagebitmap = intentdata?.extras?.get("data") as Bitmap
                 Timber.d("bitmap first $imagebitmap")
                 binding?.insertimage?.setImageBitmap(imagebitmap)
