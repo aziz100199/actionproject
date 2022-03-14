@@ -36,7 +36,7 @@ import java.io.FileOutputStream
 class ProfileFragment : Fragment() {
 
     var binding: FragmentProfileBinding? = null
-    internal var imagePath: String? = null
+    internal var imagePath: String? = ""
     var dataentity: DataEntity? = null
     val requestcodeforgallery = 1
     val requestcondeforcamera = 2
@@ -89,8 +89,7 @@ class ProfileFragment : Fragment() {
             binding?.adressedittext?.setText(it.useraddress)
             if (it.imageuri != null)
                 binding?.insertimage?.setImageURI(Uri.parse(it.imageuri))
-            imagePath = it.imageuri
-
+            imagestring=it.imageuri
         }
     }
 
@@ -126,8 +125,7 @@ class ProfileFragment : Fragment() {
             val useremail = binding?.emailedittext?.text.toString()
             val userphone = binding?.phoneedittext?.text.toString()
             val useraddress = binding?.adressedittext?.text.toString()
-
-            imagePath?.let { it1 ->
+            imagestring?.let { it1 ->
                 dataentity?.username = username
                 dataentity?.useremail = useremail
                 dataentity?.imageuri = it1
