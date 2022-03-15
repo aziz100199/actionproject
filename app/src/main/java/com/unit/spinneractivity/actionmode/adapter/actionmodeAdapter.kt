@@ -1,4 +1,4 @@
-package com.unit.spinneractivity.adapter
+package com.unit.spinneractivity.actionmode.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context

@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.unit.spinneractivity.R
 import com.unit.spinneractivity.actionmode.actionviewmodel.ActionVIewModel
-import com.unit.spinneractivity.adapter.actionmodeAdapter
+import com.unit.spinneractivity.actionmode.adapter.actionmodeAdapter
 import com.unit.spinneractivity.databinding.ActivityActionModeBinding
 
 class ActionModeActivity : AppCompatActivity(), actionmodeAdapter.AdapterCallBack {

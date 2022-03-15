@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.snackbar.Snackbar
-import com.unit.spinneractivity.RoomDbActivity
+import com.unit.spinneractivity.roomdatabase.RoomDbActivity
 import com.unit.spinneractivity.databinding.FragmentRoomLoginInterfaceBinding
 import com.unit.spinneractivity.roomdatabase.room.entities.UserEntity
 import com.unit.spinneractivity.roomdatabase.viewmodel.RoomViewModel

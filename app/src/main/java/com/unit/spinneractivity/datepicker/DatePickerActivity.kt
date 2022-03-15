@@ -1,4 +1,4 @@
-package com.unit.spinneractivity
+package com.unit.spinneractivity.datepicker
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog

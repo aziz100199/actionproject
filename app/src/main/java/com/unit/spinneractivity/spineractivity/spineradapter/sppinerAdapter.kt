@@ -1,4 +1,4 @@
-package com.unit.spinneractivity.spineradapter
+package com.unit.spinneractivity.spineractivity.spineradapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.unit.spinneractivity.R
-import com.unit.spinneractivity.modelcllass.SpinerModelClass
+import com.unit.spinneractivity.spineractivity.modelcllass.SpinerModelClass
 
 class sppinerAdapter(var spiinercallback: SppinerCallBack) :
     RecyclerView.Adapter<sppinerAdapter.VhRecycler>() {

@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -19,12 +20,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SpinnerActivity">
         <activity
-            android:name=".RoomDbActivity"
+            android:name=".retrofit.RetrofitResponseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".roomdatabase.RoomDbActivity"
             android:exported="false"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
-
         <activity
-            android:name=".DatePickerActivity"
+            android:name=".datepicker.DatePickerActivity"
             android:exported="false" />
         <activity
             android:name=".colepsingtoolbar.CollapsingToolBarActivity"

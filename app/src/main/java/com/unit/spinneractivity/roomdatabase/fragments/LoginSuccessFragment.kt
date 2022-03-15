@@ -2,7 +2,6 @@ package com.unit.spinneractivity.roomdatabase.fragments
 
 import android.Manifest
 import android.app.DatePickerDialog
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +14,7 @@ import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.unit.spinneractivity.R
-import com.unit.spinneractivity.RoomDbActivity
+import com.unit.spinneractivity.roomdatabase.RoomDbActivity
 import com.unit.spinneractivity.databinding.FragmentLoginSuccessBinding
 import com.unit.spinneractivity.roomdatabase.adapter.RoomAdapter
 import com.unit.spinneractivity.roomdatabase.room.entities.DataEntity
@@ -133,8 +132,8 @@ class LoginSuccessFragment : Fragment() {
         }
         binding?.logout?.setOnClickListener {
             viewmodel.logout()
-
-
+//            requireActivity().onBackPressed()
+//            requireActivity().supportFragmentManager.beginTransaction().remove(this)
         }
 
 

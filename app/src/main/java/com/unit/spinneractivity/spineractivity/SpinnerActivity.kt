@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.unit.spinneractivity.LauncherActivity
 import com.unit.spinneractivity.R
 import com.unit.spinneractivity.databinding.ActivityMainBinding
-import com.unit.spinneractivity.modelcllass.SpinerModelClass
-import com.unit.spinneractivity.spineradapter.sppinerAdapter
+import com.unit.spinneractivity.spineractivity.modelcllass.SpinerModelClass
+import com.unit.spinneractivity.spineractivity.spineradapter.sppinerAdapter
 import timber.log.Timber
 
 class SpinnerActivity : AppCompatActivity(), sppinerAdapter.SppinerCallBack {

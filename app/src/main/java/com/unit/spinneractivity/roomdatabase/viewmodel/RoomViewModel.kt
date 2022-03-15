@@ -242,6 +242,9 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
 
     }
 
+
+
+
     fun snackBar(view: View, text: String) {
         Snackbar.make(view,
             text,

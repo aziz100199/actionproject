@@ -1,8 +1,9 @@
-package com.unit.spinneractivity
+package com.unit.spinneractivity.roomdatabase
 
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.unit.spinneractivity.R
 import com.unit.spinneractivity.databinding.ActivityRoomDataBaseBinding
 import com.unit.spinneractivity.roomdatabase.viewmodel.RoomViewModel
 import timber.log.Timber
@@ -21,7 +22,7 @@ class RoomDbActivity : AppCompatActivity() {
         viewmodel.load()
         viewmodel.fragmentLD.observe(this) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmentcontainer, it).commit()
+                .replace(R.id.fragmentcontainer, it).addToBackStack(null).commit()
             Timber.d("fragment")
         }
 
