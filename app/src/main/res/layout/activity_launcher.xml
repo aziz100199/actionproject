@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Action Mode"
-        app:layout_constraintBottom_toTopOf="@id/spinnerbutton"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerbutton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -21,56 +21,66 @@
         android:id="@+id/spinnerbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:text="spinner"
-        app:layout_constraintBottom_toTopOf="@id/collapsingtoolbar"
+        app:layout_constraintBottom_toTopOf="@+id/collapsingtoolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/actionmodebtn" />
+        app:layout_constraintTop_toBottomOf="@+id/actionmodebtn" />
 
     <Button
         android:id="@+id/collapsingtoolbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:text="coolapsing toolbar"
-        app:layout_constraintBottom_toTopOf="@id/datepicker"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spinnerbutton" />
+        app:layout_constraintBottom_toTopOf="@+id/datepicker"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerbutton"
+        tools:layout_editor_absoluteX="233dp" />
 
     <Button
         android:id="@+id/datepicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:text="date picker"
-        app:layout_constraintBottom_toTopOf="@id/roomdatabase"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/collapsingtoolbar" />
+        app:layout_constraintBottom_toTopOf="@+id/roomdatabase"
+        app:layout_constraintTop_toBottomOf="@+id/collapsingtoolbar"
+        tools:layout_editor_absoluteX="271dp" />
 
     <Button
         android:id="@+id/roomdatabase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:text="Room DataBase"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/datepicker" />
+        app:layout_constraintBottom_toTopOf="@+id/retrofit"
+        app:layout_constraintTop_toBottomOf="@+id/datepicker"
+        tools:layout_editor_absoluteX="256dp" />
 
     <Button
         android:id="@+id/retrofit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:text="Retrofit"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/roomdatabase" />
+        app:layout_constraintBottom_toTopOf="@+id/practicbtn"
+        app:layout_constraintTop_toBottomOf="@+id/roomdatabase"
+        tools:layout_editor_absoluteX="284dp" />
+
+    <Button
+        android:id="@+id/practicbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="practice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/retrofit"
+        tools:layout_editor_absoluteX="283dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

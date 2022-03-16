@@ -7,6 +7,6 @@ import retrofit2.http.GET
 interface Todo {
 
     @GET("/todos")
-    suspend fun getvalue(): Response<List<RetrofitModel>>
+   suspend fun getvalue(): Response<List<RetrofitModel>>
 
 }

@@ -8,6 +8,7 @@ import com.unit.spinneractivity.actionmode.ActionModeActivity
 import com.unit.spinneractivity.colepsingtoolbar.CollapsingToolBarActivity
 import com.unit.spinneractivity.databinding.ActivityLauncherBinding
 import com.unit.spinneractivity.datepicker.DatePickerActivity
+import com.unit.spinneractivity.practiceactivity.PracticeActivity
 import com.unit.spinneractivity.retrofit.RetrofitResponseActivity
 import com.unit.spinneractivity.roomdatabase.RoomDbActivity
 import com.unit.spinneractivity.spineractivity.SpinnerActivity
@@ -43,6 +44,9 @@ class LauncherActivity : AppCompatActivity() {
         }
         binding?.retrofit?.setOnClickListener {
             activitylauncher(RetrofitResponseActivity())
+        }
+        binding?.practicbtn?.setOnClickListener {
+            activitylauncher(PracticeActivity())
         }
     }
 
